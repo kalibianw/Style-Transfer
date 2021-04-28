@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from torchvision import datasets
 import torchvision.transforms as transforms
 import torchvision.models as models
-import torchsummary
+import torchinfo
 import numpy as np
 from collections import namedtuple
 
@@ -234,9 +234,9 @@ style_transform = transforms.Compose([
     transforms.Lambda(lambda x: x.mul(255))
 ])
 
-print(glob.glob("C:/Users/admin/Documents/AI/data/COCO 2014 Train images/train2014/*"))
+print(glob.glob("D:/AI/data/COCO 2014 Train images/train2014/*"))
 
-train_dataset = datasets.ImageFolder("C:/Users/admin/Documents/AI/data/COCO 2014 Train images", transform)  # FIXME
+train_dataset = datasets.ImageFolder("D:/AI/data/COCO 2014 Train images", transform)  # FIXME
 train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size)
 
 transformer = TransformerNet().to(device)
