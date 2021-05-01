@@ -21,22 +21,22 @@ import cv2
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-style_image_location = "img/picasso.jpg"
+style_image_location = "img/van_gogh_portrait_painting.jpg"
 style_image_sample = Image.open(style_image_location, 'r')
 display(style_image_sample)
 
-batch_size = 8
+batch_size = 4
 random_seed = 10
-num_epochs = 64
+num_epochs = 2
 initial_lr = 1e-3
-checkpoint_dir = "ckpt/"
+checkpoint_dir = "(gogh)ckpt/"
 
 content_weight = 1e5
 style_weight = 1e10
 log_interval = 50
 checkpoint_interval = 500
 
-running_option = "training"
+running_option = "test"
 
 
 class VGG16(torch.nn.Module):
@@ -173,9 +173,6 @@ class TransformerNet(nn.Module):
         decoder_output = self.decoder(residual_output)
 
         return decoder_output
-
-
-cap = cv2.imread("img/dancing.jpg")
 
 
 def load_image(filename, size=None, scale=None):
@@ -336,7 +333,7 @@ if running_option == "test":
     with torch.no_grad():
         style_model = TransformerNet()
 
-        ckpt_model_path = os.path.join(checkpoint_dir, "ckpt_epoch_63_batch_id_500.pth")  # FIXME
+        ckpt_model_path = os.path.join(checkpoint_dir, "ckpt_epoch_1_batch_id_20500.pth")  # FIXME
         checkpoint = torch.load(ckpt_model_path, map_location=device)
 
         # remove saved deprecated running_* keys in InstanceNorm from the checkpoint
@@ -349,4 +346,4 @@ if running_option == "test":
 
         output = style_model(content_image).cpu()
 
-    save_image("img/sanok_result.png", output[0])  # FIXME
+    save_image("img/(gogh_output)dancing.jpg", output[0])  # FIXME
